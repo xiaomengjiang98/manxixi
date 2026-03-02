@@ -4,37 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的博客</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: auto;
-            padding: 40px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #333;
-        }
-        .card {
-            background: white;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        a {
-            text-decoration: none;
-            color: #007acc;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>欢迎来到我的博客</h1>
+<div class="container">
 
-<div class="card">
-    <h2>第一篇文章</h2>
-    <p>这是我的第一篇博客文章。</p>
+    <header>
+        <h1>我的博客</h1>
+        <div class="subtitle">记录学习与生活</div>
+    </header>
+
+    <ul class="post-list">
+        <li>
+            <a href="post1.html">我的第一篇文章</a>
+            <span class="date">2026-03-02</span>
+        </li>
+    </ul>
+
+    <footer>
+        © 2026 我的博客
+    </footer>
+
 </div>
 
 </body>
