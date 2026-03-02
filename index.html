@@ -1,32 +1,213 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的博客</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MJ Blog</title>
+
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #111;
+  --secondary: #666;
+  --card: #f5f5f7;
+}
+
+body.dark {
+  --bg: #000;
+  --text: #f5f5f7;
+  --secondary: #aaa;
+  --card: #111;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  transition: all 0.4s ease;
+}
+
+/* 顶部导航 */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.7);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60px;
+  z-index: 1000;
+}
+
+body.dark nav {
+  background: rgba(0,0,0,0.6);
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text);
+  margin-right: 30px;
+  font-weight: 500;
+}
+
+.theme-toggle {
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* 首页大标题 */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15%;
+}
+
+.hero h1 {
+  font-size: 80px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 24px;
+  color: var(--secondary);
+}
+
+/* 内容区 */
+.section {
+  padding: 150px 15%;
+}
+
+.section h2 {
+  font-size: 50px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: var(--card);
+  padding: 40px;
+  border-radius: 25px;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card h3 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: var(--secondary);
+  line-height: 1.6;
+}
+
+/* 动画 */
+.fade {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: 1s ease;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+footer {
+  text-align: center;
+  padding: 80px;
+  color: var(--secondary);
+}
+</style>
 </head>
+
 <body>
 
-<div class="container">
+<nav>
+  <div><strong>MJ</strong></div>
+  <div>
+    <a href="#blog">Blog</a>
+    <a href="#about">About</a>
+    <span class="theme-toggle" onclick="toggleTheme()">🌙</span>
+  </div>
+</nav>
 
-    <header>
-        <h1>我的博客</h1>
-        <div class="subtitle">记录学习与生活</div>
-    </header>
+<section class="hero">
+  <h1>Think Different.</h1>
+  <p>一个极简而优雅的个人博客。</p>
+</section>
 
-    <ul class="post-list">
-        <li>
-            <a href="post1.html">我的第一篇文章</a>
-            <span class="date">2026-03-02</span>
-        </li>
-    </ul>
+<section id="blog" class="section fade">
+  <h2>Latest Posts</h2>
 
-    <footer>
-        © 2026 我的博客
-    </footer>
+  <div class="card">
+    <h3>我的第一篇博客</h3>
+    <p>欢迎来到我的博客世界，这里记录技术与思考。</p>
+  </div>
 
-</div>
+  <div class="card">
+    <h3>静态博客部署教程</h3>
+    <p>使用 GitHub Pages + Cloudflare 构建高速个人站点。</p>
+  </div>
+
+</section>
+
+<section id="about" class="section fade">
+  <h2>About Me</h2>
+  <div class="card">
+    <p>
+      我是一名开发爱好者，热爱设计与简洁美学。
+      本站采用纯 HTML + CSS 构建。
+    </p>
+  </div>
+</section>
+
+<footer>
+  © 2026 MJ Blog. All rights reserved.
+</footer>
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+}
+
+/* 滚动动画 */
+const faders = document.querySelectorAll('.fade');
+const appearOptions = {
+  threshold: 0.3
+};
+
+const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("show");
+    observer.unobserve(entry.target);
+  });
+}, appearOptions);
+
+faders.forEach(fader => {
+  appearOnScroll.observe(fader);
+});
+
+/* 自动深色模式 */
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.body.classList.add('dark');
+}
+</script>
 
 </body>
 </html>
