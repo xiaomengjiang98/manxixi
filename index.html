@@ -1,213 +1,220 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MJ Blog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的博客 - Apple Style</title>
+    <style>
+        /* 基础样式复刻 */
+        :root {
+            --bg-color: #f5f5f7;
+            --nav-bg: rgba(251, 251, 253, 0.8);
+            --text-main: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --accent-color: #0066cc;
+        }
 
-<style>
-:root {
-  --bg: #ffffff;
-  --text: #111;
-  --secondary: #666;
-  --card: #f5f5f7;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "SF Pro SC", "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
 
-body.dark {
-  --bg: #000;
-  --text: #f5f5f7;
-  --secondary: #aaa;
-  --card: #111;
-}
+        /* 毛玻璃导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 44px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-}
+        .nav-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  transition: all 0.4s ease;
-}
+        /* 主体容器 */
+        main {
+            max-width: 1000px;
+            margin: 80px auto 0;
+            padding: 0 20px;
+        }
 
-/* 顶部导航 */
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.7);
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 60px;
-  z-index: 1000;
-}
+        /* 标题区 */
+        .header-section {
+            padding: 40px 0;
+            border-bottom: 1px solid #d2d2d7;
+            margin-bottom: 40px;
+        }
 
-body.dark nav {
-  background: rgba(0,0,0,0.6);
-}
+        h1 {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.003em;
+            margin: 0;
+        }
 
-nav a {
-  text-decoration: none;
-  color: var(--text);
-  margin-right: 30px;
-  font-weight: 500;
-}
+        .subtitle {
+            font-size: 24px;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
 
-.theme-toggle {
-  cursor: pointer;
-  font-size: 14px;
-  opacity: 0.7;
-}
+        /* 推荐文章大图卡片 */
+        .featured-post {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
 
-/* 首页大标题 */
-.hero {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 15%;
-}
+        .featured-post:hover {
+            transform: scale(1.01);
+        }
 
-.hero h1 {
-  font-size: 80px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
+        .featured-image {
+            width: 100%;
+            height: 500px;
+            background: #000;
+            object-fit: cover;
+        }
 
-.hero p {
-  font-size: 24px;
-  color: var(--secondary);
-}
+        .featured-content {
+            padding: 40px;
+        }
 
-/* 内容区 */
-.section {
-  padding: 150px 15%;
-}
+        /* 文章网格 */
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 100px;
+        }
 
-.section h2 {
-  font-size: 50px;
-  margin-bottom: 40px;
-}
+        .post-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s ease;
+        }
 
-.card {
-  background: var(--card);
-  padding: 40px;
-  border-radius: 25px;
-  margin-bottom: 30px;
-  transition: transform 0.3s ease;
-}
+        .post-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+        }
 
-.card:hover {
-  transform: translateY(-10px);
-}
+        .post-date {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
 
-.card h3 {
-  font-size: 28px;
-  margin-bottom: 10px;
-}
+        .post-title {
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
 
-.card p {
-  color: var(--secondary);
-  line-height: 1.6;
-}
+        .post-excerpt {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.47;
+        }
 
-/* 动画 */
-.fade {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: 1s ease;
-}
+        /* 页脚 */
+        footer {
+            background: #f5f5f7;
+            padding: 50px 0;
+            font-size: 12px;
+            color: #86868b;
+            border-top: 1px solid #d2d2d7;
+        }
 
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
 
-footer {
-  text-align: center;
-  padding: 80px;
-  color: var(--secondary);
-}
-</style>
+        @media (max-width: 734px) {
+            h1 { font-size: 32px; }
+            .featured-image { height: 300px; }
+        }
+    </style>
 </head>
-
 <body>
 
 <nav>
-  <div><strong>MJ</strong></div>
-  <div>
-    <a href="#blog">Blog</a>
-    <a href="#about">About</a>
-    <span class="theme-toggle" onclick="toggleTheme()">🌙</span>
-  </div>
+    <div class="nav-content">
+        <span></span>
+        <span>文章</span>
+        <span>分类</span>
+        <span>关于</span>
+        <span>🔍</span>
+    </div>
 </nav>
 
-<section class="hero">
-  <h1>Think Different.</h1>
-  <p>一个极简而优雅的个人博客。</p>
-</section>
+<main>
+    <section class="header-section">
+        <h1>我的博客</h1>
+        <div class="subtitle">记录设计、技术与生活。</div>
+    </section>
 
-<section id="blog" class="section fade">
-  <h2>Latest Posts</h2>
+    <article class="featured-post">
+        <img src="https://images.unsplash.com/photo-1611186871348-b1ec696e52c9?q=80&w=2070" alt="Featured" class="featured-image">
+        <div class="featured-content">
+            <div class="post-date">2024年6月12日</div>
+            <div class="post-title" style="font-size: 32px;">论极简主义：少即是多</div>
+            <p class="post-excerpt">探索如何在纷繁复杂的数字世界中寻找平衡，回归设计的本质。</p>
+        </div>
+    </article>
 
-  <div class="card">
-    <h3>我的第一篇博客</h3>
-    <p>欢迎来到我的博客世界，这里记录技术与思考。</p>
-  </div>
-
-  <div class="card">
-    <h3>静态博客部署教程</h3>
-    <p>使用 GitHub Pages + Cloudflare 构建高速个人站点。</p>
-  </div>
-
-</section>
-
-<section id="about" class="section fade">
-  <h2>About Me</h2>
-  <div class="card">
-    <p>
-      我是一名开发爱好者，热爱设计与简洁美学。
-      本站采用纯 HTML + CSS 构建。
-    </p>
-  </div>
-</section>
+    <div class="post-grid">
+        <div class="post-card">
+            <div class="post-date">2024年6月10日</div>
+            <div class="post-title">M4 芯片的性能飞跃</div>
+            <p class="post-excerpt">深入分析新一代硅芯片如何改变移动端生产力工具的形态。</p>
+        </div>
+        <div class="post-card">
+            <div class="post-date">2024年6月8日</div>
+            <div class="post-title">如何拍摄出电影感的照片</div>
+            <p class="post-excerpt">利用光影和构图，让你的每一张照片都像在讲述一个故事。</p>
+        </div>
+        <div class="post-card">
+            <div class="post-date">2024年6月5日</div>
+            <div class="post-title">SwiftUI 动画指南</div>
+            <p class="post-excerpt">通过简单的声明式语法，构建流畅且动感十足的用户界面。</p>
+        </div>
+    </div>
+</main>
 
 <footer>
-  © 2026 MJ Blog. All rights reserved.
+    <div class="footer-content">
+        Copyright © 2024 MyBlog. 保留所有权利。
+    </div>
 </footer>
-
-<script>
-function toggleTheme() {
-  document.body.classList.toggle("dark");
-}
-
-/* 滚动动画 */
-const faders = document.querySelectorAll('.fade');
-const appearOptions = {
-  threshold: 0.3
-};
-
-const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add("show");
-    observer.unobserve(entry.target);
-  });
-}, appearOptions);
-
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
-});
-
-/* 自动深色模式 */
-if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  document.body.classList.add('dark');
-}
-</script>
 
 </body>
 </html>
